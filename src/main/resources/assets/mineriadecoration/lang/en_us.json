@@ -1,0 +1,13 @@
+{
+  "itemGroup.mda": "Mineria: Decoration Addon",
+
+  "block.mineriadecoration.manufacturing_table": "Manufacturing Table",
+  "block.mineriadecoration.jar": "Jar",
+
+  "item.mineriadecoration.netherite_saw": "Netherite Saw",
+  "item.mineriadecoration.diamond_saw": "Diamond Saw",
+  "item.mineriadecoration.gold_saw": "Gold Saw",
+  "item.mineriadecoration.iron_saw": "Iron Saw",
+  "item.mineriadecoration.titane_saw": "Titane Saw",
+  "item.mineriadecoration.lonsdaleite_saw": "Lonsdaleite Saw"
+}

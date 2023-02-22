@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  #",
+    " # ",
+    "E  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:diamond"
+    },
+    "E": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "mineriadecoration:diamond_saw",
+    "count": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "contains=0": { "model": "mineriadecoration:block/jar/jar" },
+    "contains=1": { "model": "mineriadecoration:block/jar/jar_contains_1" },
+    "contains=2": { "model": "mineriadecoration:block/jar/jar_contains_2" },
+    "contains=3": { "model": "mineriadecoration:block/jar/jar_contains_3" },
+    "contains=4": { "model": "mineriadecoration:block/jar/jar_contains_4" },
+    "contains=5": { "model": "mineriadecoration:block/jar/jar_contains_5" }
+  }
+}

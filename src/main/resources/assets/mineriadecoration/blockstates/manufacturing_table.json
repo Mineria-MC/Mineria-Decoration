@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "mineriadecoration:block/manufacturing_table",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "mineriadecoration:block/manufacturing_table",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "mineriadecoration:block/manufacturing_table"
+    },
+    "facing=south": {
+      "model": "mineriadecoration:block/manufacturing_table",
+      "y": 180
+    }
+  }
+}
