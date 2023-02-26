@@ -1,8 +1,11 @@
 package io.github.mineria.decorationaddon;
 
 import com.mojang.logging.LogUtils;
+import io.github.mineria.decorationaddon.client.init.MDAScreens;
 import io.github.mineria.decorationaddon.common.init.MDABlocks;
 import io.github.mineria.decorationaddon.common.init.MDAItems;
+import io.github.mineria.decorationaddon.common.init.MDAMenuTypes;
+import io.github.mineria.decorationaddon.common.init.MDATileEntities;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.common.MinecraftForge;
@@ -31,6 +34,8 @@ public class DecorationAddon {
         MDABlocks.BLOCKS.register(modEventBus);
         MDABlocks.BLOCK_ITEMS.register(modEventBus);
         MDAItems.ITEMS.register(modEventBus);
+        MDATileEntities.TILE_ENTITY_TYPES.register(modEventBus);
+        MDAMenuTypes.MENU_TYPES.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -40,7 +45,7 @@ public class DecorationAddon {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        ItemBlockRenderTypes.setRenderLayer(MDABlocks.MANUFACTURE_TABLE.get(), RenderType.cutout());
+        MDAScreens.register();
     }
 
     @SubscribeEvent

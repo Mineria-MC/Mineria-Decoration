@@ -1,5 +1,6 @@
 package io.github.mineria.decorationaddon.client.init;
 
+import com.mineria.mod.util.MineriaCreativeModeTabs;
 import io.github.mineria.decorationaddon.DecorationAddon;
 import io.github.mineria.decorationaddon.common.init.MDABlocks;
 import io.github.mineria.decorationaddon.common.init.MDAItems;
@@ -15,6 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = DecorationAddon.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -24,11 +26,13 @@ public class MDACreativeTabs {
     private static CreativeModeTab TAB;
 
     @SubscribeEvent
-    public static void register(final CreativeModeTabEvent.Register event) {
-        final Supplier<ItemStack> manufactureTable = () -> new ItemStack(MDABlocks.MANUFACTURE_TABLE.get());
+    public static void register(CreativeModeTabEvent.Register event) {
+        final Supplier<ItemStack> manufactureTable = () -> new ItemStack(MDABlocks.MANUFACTURING_TABLE.get());
 
         TAB = event.registerCreativeModeTab(
                 new ResourceLocation(DecorationAddon.MODID, "tab"),
+                List.of(),
+                List.of(MineriaCreativeModeTabs.getApothecaryTab()),
                 builder -> builder
                         .title(Component.translatable("itemGroup.mda"))
                         .icon(manufactureTable)

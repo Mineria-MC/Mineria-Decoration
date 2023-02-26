@@ -1,7 +1,9 @@
 package io.github.mineria.decorationaddon.common.block.manufacturing_table;
 
+import io.github.mineria.decorationaddon.common.init.MDATileEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -12,6 +14,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -21,10 +24,12 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class ManufacturingTable extends Block {
+public class ManufacturingTable extends Block implements EntityBlock {
 
     public static final VoxelShape[] SHAPES = makeShape();
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -32,6 +37,16 @@ public class ManufacturingTable extends Block {
 
     public ManufacturingTable() {
         super(Properties.of(Material.WOOD).strength(2.5f, 0f).sound(SoundType.WOOD));
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        BlockEntity entity = level.getBlockEntity(pos);
+        if(!level.isClientSide && entity instanceof ManufacturingTableTileEntity tile) {
+            NetworkHooks.openScreen((ServerPlayer) player, tile, pos);
+            return InteractionResult.SUCCESS;
+        }
+        return super.use(state, level, pos, player, hand, hitResult);
     }
 
     @Override
@@ -175,20 +190,9 @@ public class ManufacturingTable extends Block {
         return RenderShape.MODEL;
     }
 
-    /*@Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if(level.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }else {
-            player.openMenu(state.getMenuProvider(level, pos));
-            return InteractionResult.CONSUME;
-        }
-    }
-
+    @Nullable
     @Override
-    public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-        return new SimpleMenuProvider((slots, inventory, var1) -> {
-            return new ManufacturingTableMenu(slots, inventory, ContainerLevelAccess.create(level, pos));
-        }, CONTAINER_TITLE);
-    }*/
+    public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
+        return MDATileEntities.MANUFACTURING_TABLE.get().create(p_153215_, p_153216_);
+    }
 }

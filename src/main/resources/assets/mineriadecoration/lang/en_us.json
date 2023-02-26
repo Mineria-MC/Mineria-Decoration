@@ -9,5 +9,7 @@
   "item.mineriadecoration.gold_saw": "Gold Saw",
   "item.mineriadecoration.iron_saw": "Iron Saw",
   "item.mineriadecoration.titane_saw": "Titane Saw",
-  "item.mineriadecoration.lonsdaleite_saw": "Lonsdaleite Saw"
+  "item.mineriadecoration.lonsdaleite_saw": "Lonsdaleite Saw",
+
+  "tile_entity.mineriadecoration.manufacturing_table": "Manufacturing Table"
 }

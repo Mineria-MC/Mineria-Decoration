@@ -22,7 +22,7 @@ public class MDABlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, DecorationAddon.MODID);
     public static final DeferredRegister<Item> BLOCK_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DecorationAddon.MODID);
 
-    public static final RegistryObject<Block> MANUFACTURE_TABLE = register("manufacturing_table", ManufacturingTable::new);
+    public static final RegistryObject<Block> MANUFACTURING_TABLE = register("manufacturing_table", ManufacturingTable::new);
     public static final RegistryObject<Block> JAR = register("jar", Jar::new);
 
     private static RegistryObject<Block> register(String name, Supplier<Block> instance) {
