@@ -1,0 +1,18 @@
+{
+  "type": "mineriadecoration:manufacturing_table",
+  "pattern": [
+    "# #",
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:glass"
+    }
+  },
+  "saw_durability": "1",
+  "result": {
+    "item": "mineriadecoration:jar",
+    "count": 1
+  }
+}

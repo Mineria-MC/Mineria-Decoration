@@ -3,35 +3,20 @@ package io.github.mineria.decorationaddon.common.block.manufacturing_table;
 import com.mineria.mod.common.containers.MineriaMenu;
 import com.mineria.mod.common.containers.slots.OutputSlot;
 import com.mineria.mod.util.MineriaItemStackHandler;
-import com.mineria.mod.util.MineriaUtils;
 import io.github.mineria.decorationaddon.common.containers.slots.SawSlot;
 import io.github.mineria.decorationaddon.common.init.MDAMenuTypes;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 public class ManufacturingTableMenu extends MineriaMenu<ManufacturingTableTileEntity> {
 
@@ -61,25 +46,6 @@ public class ManufacturingTableMenu extends MineriaMenu<ManufacturingTableTileEn
 
         this.addSlot(new OutputSlot(handler, 10, 143, 36));
     }
-
-    /*protected void slotChangedCraftingGrid(Level level, Player player, MineriaItemStackHandler handler) {
-        if (!level.isClientSide) {
-            ServerPlayer serverPlayer = (ServerPlayer) player;
-            ItemStack result = ItemStack.EMPTY;
-            CraftingContainerWrapper craftingContainer = new CraftingContainerWrapper(this, handler);
-            Optional<CraftingRecipe> recipeOpt = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craftingContainer, level);
-            if (recipeOpt.isPresent()) {
-                ItemStack assembled = recipeOpt.get().assemble(craftingContainer);
-                if (assembled.isItemEnabled(level.enabledFeatures())) {
-                    result = assembled;
-                }
-            }
-
-            handler.setStackInSlot(10, result);
-            this.setRemoteSlot(0, result);
-            serverPlayer.connection.send(new ClientboundContainerSetSlotPacket(this.containerId, this.incrementStateId(), 0, result));
-        }
-    }*/
 
     @NotNull
     @Override

@@ -34,6 +34,7 @@ public class DecorationAddon {
         MDATileEntities.TILE_ENTITY_TYPES.register(modEventBus);
         MDAMenuTypes.MENU_TYPES.register(modEventBus);
         MDARecipesTypes.RECIPE_TYPE.register(modEventBus);
+        MDARecipesSerializer.RECIPE_SERIALIZER.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
