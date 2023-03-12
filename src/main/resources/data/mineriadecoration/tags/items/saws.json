@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "mineriadecoration:iron_saw",
+    "mineriadecoration:gold_saw",
+    "mineriadecoration:diamond_saw",
+    "mineriadecoration:netherite_saw",
+    "mineriadecoration:titane_saw",
+    "mineriadecoration:lonsdaleite_saw"
+  ]
+}

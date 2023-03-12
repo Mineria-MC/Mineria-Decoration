@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:logs"
+    },
+    "E": {
+      "tag": "mineriadecoration:saws"
+    }
+  },
+  "result": {
+    "item": "mineriadecoration:manufacturing_table",
+    "count": 1
+  }
+}
