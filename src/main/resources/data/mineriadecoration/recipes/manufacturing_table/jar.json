@@ -7,10 +7,9 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:glass"
+      "tag": "forge:glass"
     }
   },
-  "saw_durability": "1",
   "result": {
     "item": "mineriadecoration:jar",
     "count": 1

@@ -1,16 +1,14 @@
 package io.github.mineria.decorationaddon.common.block.manufacturing_table;
 
+import com.mineria.mod.common.blocks.extractor.ExtractorTileEntity;
 import io.github.mineria.decorationaddon.common.init.MDATileEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -52,14 +50,13 @@ public class ManufacturingTable extends Block implements EntityBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
-        if(p_60555_.getValue(FACING).getName().equals("north")) return SHAPES[0];
-        if(p_60555_.getValue(FACING).getName().equals("east")) return SHAPES[3];
-        if(p_60555_.getValue(FACING).getName().equals("south")) return SHAPES[2];
-        if(p_60555_.getValue(FACING).getName().equals("west")) return SHAPES[1];
-
-
-        return SHAPES[0];
+    public VoxelShape getShape(BlockState state, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
+        return switch (state.getValue(FACING)) {
+            case EAST -> SHAPES[3];
+            case SOUTH -> SHAPES[2];
+            case WEST -> SHAPES[1];
+            default -> SHAPES[0];
+        };
     }
 
     @Override
@@ -133,6 +130,8 @@ public class ManufacturingTable extends Block implements EntityBlock {
                         Block.box(3, 0, 3, 4, 12, 13)
                 ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
+
+
         VoxelShape shapeSouth = Stream.of(
                 Stream.of(
                         Block.box(10, 13, 2, 12, 14, 3),
@@ -190,6 +189,16 @@ public class ManufacturingTable extends Block implements EntityBlock {
     @Override
     public RenderShape getRenderShape(BlockState p_60550_) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        BlockEntity tile = worldIn.getBlockEntity(pos);
+        if (tile instanceof ManufacturingTableTileEntity && state.getBlock() != newState.getBlock()) {
+            Containers.dropContents(worldIn, pos, ((ManufacturingTableTileEntity) tile).getInventory().toNonNullList());
+        }
+
+        super.onRemove(state, worldIn, pos, newState, isMoving);
     }
 
     @Nullable

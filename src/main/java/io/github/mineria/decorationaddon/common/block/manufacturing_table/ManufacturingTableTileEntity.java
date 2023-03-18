@@ -55,6 +55,10 @@ public class ManufacturingTableTileEntity extends MineriaLockableTileEntity {
         }
 
         if(slot == 10) {
+            ManufacturingTableRecipe recipe = findManufacturingTableRecipe();
+            if(recipe != null) {
+                inventory.getStackInSlot(0).hurt(recipe.getSawDamage(), level.getRandom(), null);
+            }
             for (int i = 1; i < 10; i++) {
                 ItemStack stack = customInventory.getStackInSlot(i);
                 if(stack.getCount() == 1) {
@@ -79,7 +83,7 @@ public class ManufacturingTableTileEntity extends MineriaLockableTileEntity {
             } else {
                 ManufacturingTableRecipe recipe = findManufacturingTableRecipe();
                 if(recipe != null) {
-                    ItemStack assembled = recipe.assemble(new RecipeWrapper(this.inventory));
+                    ItemStack assembled = recipe.assemble(new ManufacturingTableRecipeWrapper(this.inventory));
                     if(assembled.isItemEnabled(level.enabledFeatures())) {
                         result = assembled;
                     }
@@ -95,7 +99,7 @@ public class ManufacturingTableTileEntity extends MineriaLockableTileEntity {
     private ManufacturingTableRecipe findManufacturingTableRecipe() {
         Set<Recipe<?>> recipes = MineriaUtils.findRecipesByType(MDARecipesTypes.MANUFACTURING_TABLE_RECIPE.get(), level);
         for (Recipe<?> recipe : recipes) {
-            if(recipe instanceof ManufacturingTableRecipe manufacturingTableRecipe && manufacturingTableRecipe.matches(new RecipeWrapper(this.inventory), level)) {
+            if(recipe instanceof ManufacturingTableRecipe manufacturingTableRecipe && manufacturingTableRecipe.matches(new ManufacturingTableRecipeWrapper(this.inventory), level)) {
                 return manufacturingTableRecipe;
             }
         }

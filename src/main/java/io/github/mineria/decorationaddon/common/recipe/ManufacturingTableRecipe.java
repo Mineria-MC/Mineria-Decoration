@@ -3,8 +3,7 @@ package io.github.mineria.decorationaddon.common.recipe;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
-import io.github.mineria.decorationaddon.DecorationAddon;
-import io.github.mineria.decorationaddon.common.block.manufacturing_table.ManufacturingTableMenu;
+import io.github.mineria.decorationaddon.common.block.manufacturing_table.ManufacturingTableRecipeWrapper;
 import io.github.mineria.decorationaddon.common.init.MDARecipesSerializer;
 import io.github.mineria.decorationaddon.common.init.MDARecipesTypes;
 import net.minecraft.core.NonNullList;
@@ -21,31 +20,34 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.Set;
 
-public class ManufacturingTableRecipe implements Recipe<RecipeWrapper> {
-
-    private static int MAX_WIDTH = 3;
-    private static int MAX_HEIGHT = 3;
+public class ManufacturingTableRecipe implements Recipe<ManufacturingTableRecipeWrapper> {
+    private static final int MAX_WIDTH = 3;
+    private static final int MAX_HEIGHT = 3;
 
     private final ResourceLocation id;
-    private final int pWidth;
-    private final int pHeight;
+    private final int width;
+    private final int height;
     private final NonNullList<Ingredient> recipeItems;
-    private final float sawDurability;
+    private final int sawDurability;
     private final ItemStack result;
 
-    public ManufacturingTableRecipe(ResourceLocation id, int pWidth, int pHeight, NonNullList<Ingredient> recipeItems, float sawDurability, ItemStack result) {
+    public ManufacturingTableRecipe(ResourceLocation id, int width, int height, NonNullList<Ingredient> recipeItems, int sawDurability, ItemStack result) {
         this.id = id;
-        this.pWidth = pWidth;
-        this.pHeight = pHeight;
+        this.width = width;
+        this.height = height;
         this.recipeItems = recipeItems;
         this.sawDurability = sawDurability;
         this.result = result;
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, Level level) {
-        for (int i = 0; i < (inv.getContainerSize() / (18 * 3)) - this.pWidth; i++) {
-            for (int j = 0; j < (inv.getContainerSize() / (18 * 9)) - this.pHeight; j++) {
+    public boolean matches(ManufacturingTableRecipeWrapper inv, Level level) {
+        ItemStack saw = inv.getSaw();
+        if(saw.getMaxDamage() - saw.getDamageValue() < sawDurability) {
+            return false;
+        }
+        for (int i = 0; i <= 3 - this.width; i++) {
+            for (int j = 0; j <= 3 - this.height; j++) {
                 if(this.matches(inv, i, j, true)) {
                     return true;
                 }
@@ -58,22 +60,22 @@ public class ManufacturingTableRecipe implements Recipe<RecipeWrapper> {
         return false;
     }
 
-    private boolean matches(RecipeWrapper inv, int width, int height, boolean mirrored) {
-        for(int i = 0; i < inv.getContainerSize() / (18 * 3); i++) {
-            for(int j = 0; j < inv.getContainerSize() / (18 * 9); j++) {
+    private boolean matches(ManufacturingTableRecipeWrapper inv, int width, int height, boolean mirrored) {
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
                 int k = i - width;
                 int l = j - height;
                 Ingredient ingredient = Ingredient.EMPTY;
 
-                if(k >= 0 && l >= 0 && k < this.pWidth && l < this.pHeight) {
+                if(k >= 0 && l >= 0 && k < this.width && l < this.height) {
                     if(mirrored) {
-                        ingredient = this.recipeItems.get(this.pWidth - k - 1 + l * this.pWidth);
+                        ingredient = this.recipeItems.get(this.width - k - 1 + l * this.width);
                     }else {
-                        ingredient = this.recipeItems.get(k + l * this.pWidth);
+                        ingredient = this.recipeItems.get(k + l * this.width);
                     }
                 }
 
-                if(!ingredient.test(inv.getItem(i + j * (inv.getContainerSize() / (18 * 3))))) {
+                if(!ingredient.test(inv.getItem(i + j * 3))) {
                     return false;
                 }
             }
@@ -82,13 +84,17 @@ public class ManufacturingTableRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper inv) {
+    public ItemStack assemble(ManufacturingTableRecipeWrapper inv) {
         return this.getResultItem().copy();
+    }
+
+    public int getSawDamage() {
+        return sawDurability;
     }
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
-        return width >= this.pWidth && height >= this.pHeight;
+        return width >= this.width && height >= this.height;
     }
 
     @Override
@@ -103,12 +109,12 @@ public class ManufacturingTableRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return (RecipeSerializer)MDARecipesSerializer.MANUFACTURING_TABLE.get();
+        return MDARecipesSerializer.MANUFACTURING_TABLE.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return (RecipeType)MDARecipesTypes.MANUFACTURING_TABLE_RECIPE.get();
+        return MDARecipesTypes.MANUFACTURING_TABLE_RECIPE.get();
     }
 
     public static Map<String, Ingredient> keyFromJson(JsonObject keyEntry) {
@@ -152,10 +158,6 @@ public class ManufacturingTableRecipe implements Recipe<RecipeWrapper> {
 
             return astring;
         }
-    }
-
-    public static ItemStack itemStackFromJson(JsonObject itemStack) {
-        return CraftingHelper.getItemStack(itemStack, true, true);
     }
 
     public static String[] shrink(String... toShrink) {
@@ -234,46 +236,44 @@ public class ManufacturingTableRecipe implements Recipe<RecipeWrapper> {
     }
 
     public static class Serializer implements RecipeSerializer<ManufacturingTableRecipe> {
-        private static final ResourceLocation RECIPE_ID = new ResourceLocation(DecorationAddon.MODID, "manufacturing_table");
-
         public ManufacturingTableRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             Map<String, Ingredient> map = ManufacturingTableRecipe.keyFromJson(GsonHelper.getAsJsonObject(json, "key"));
             String[] pattern = ManufacturingTableRecipe.shrink(ManufacturingTableRecipe.patternFromJson(GsonHelper.getAsJsonArray(json, "pattern")));
-            int i = pattern[0].length();
-            int j = pattern.length;
-            NonNullList<Ingredient> list = ManufacturingTableRecipe.dissolvePattern(pattern, map, i, j);
-            float durability = Float.parseFloat(GsonHelper.getAsString(json, "saw_durability"));
-            ItemStack result = ManufacturingTableRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-            return new ManufacturingTableRecipe(recipeId, i, j, list, durability, result);
+            int width = pattern[0].length();
+            int height = pattern.length;
+            NonNullList<Ingredient> ingredients = ManufacturingTableRecipe.dissolvePattern(pattern, map, width, height);
+
+            int durability = GsonHelper.getAsInt(json, "saw_durability", 1);
+            ItemStack result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "result"), true, true);
+            return new ManufacturingTableRecipe(recipeId, width, height, ingredients, durability, result);
         }
 
         @Override
-        public @Nullable ManufacturingTableRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            int i = pBuffer.readVarInt();
-            int j = pBuffer.readVarInt();
-            float saw = pBuffer.readVarInt();
-            String s = pBuffer.readUtf();
-            CraftingBookCategory craftingbookcategory = pBuffer.readEnum(CraftingBookCategory.class);
-            NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i * j, Ingredient.EMPTY);
+        public @Nullable ManufacturingTableRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            int width = buffer.readVarInt();
+            int height = buffer.readVarInt();
+            int sawDurability = buffer.readVarInt();
+            NonNullList<Ingredient> ingredients = NonNullList.withSize(width * height, Ingredient.EMPTY);
 
-            for(int k = 0; k < nonnulllist.size(); ++k) {
-                nonnulllist.set(k, Ingredient.fromNetwork(pBuffer));
+            for(int k = 0; k < ingredients.size(); ++k) {
+                ingredients.set(k, Ingredient.fromNetwork(buffer));
             }
 
-            ItemStack itemstack = pBuffer.readItem();
-            return new ManufacturingTableRecipe(pRecipeId, i, j, nonnulllist, saw, itemstack);
+            ItemStack result = buffer.readItem();
+            return new ManufacturingTableRecipe(recipeId, width, height, ingredients, sawDurability, result);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, ManufacturingTableRecipe pRecipe) {
-            pBuffer.writeVarInt(pRecipe.pWidth);
-            pBuffer.writeVarInt(pRecipe.pHeight);
+        public void toNetwork(FriendlyByteBuf buffer, ManufacturingTableRecipe recipe) {
+            buffer.writeVarInt(recipe.width);
+            buffer.writeVarInt(recipe.height);
+            buffer.writeVarInt(recipe.sawDurability);
 
-            for(Ingredient ingredient : pRecipe.recipeItems) {
-                ingredient.toNetwork(pBuffer);
+            for(Ingredient ingredient : recipe.recipeItems) {
+                ingredient.toNetwork(buffer);
             }
 
-            pBuffer.writeItem(pRecipe.result);
+            buffer.writeItem(recipe.result);
         }
     }
 }

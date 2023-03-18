@@ -57,23 +57,28 @@ public class ManufacturingTableMenu extends MineriaMenu<ManufacturingTableTileEn
             ItemStack itemStack = slot.getItem();
             stack = itemStack.copy();
 
-            if (index < 10) {
-                if (!this.moveItemStackTo(itemStack, 10, this.slots.size(), true)) {
+            if (index == 10) {
+                // Output
+                if (!this.moveItemStackTo(itemStack, 11, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
                 slot.onQuickCraft(itemStack, stack);
-            } else if (!this.moveItemStackTo(itemStack, 0, 10, false)) {
-                if (index < 10 + 27) {
-                    if (!this.moveItemStackTo(itemStack, 10 + 27, this.slots.size(), true)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else {
-                    if (!this.moveItemStackTo(itemStack, 10, 10 + 27, false)) {
-                        return ItemStack.EMPTY;
+            } else if (index > 10) {
+                if(!this.moveItemStackTo(itemStack, 0, 10, false)) {
+                    if (index < 11 + 27) {
+                        if (!this.moveItemStackTo(itemStack, 11 + 27, this.slots.size(), true)) {
+                            return ItemStack.EMPTY;
+                        }
+                    } else {
+                        if (!this.moveItemStackTo(itemStack, 11, 11 + 27, false)) {
+                            return ItemStack.EMPTY;
+                        }
                     }
                 }
+            } else if (!this.moveItemStackTo(itemStack, 11, 47, false)) {
                 return ItemStack.EMPTY;
             }
+
             if (itemStack.getCount() == 0) {
                 slot.set(ItemStack.EMPTY);
             } else {
