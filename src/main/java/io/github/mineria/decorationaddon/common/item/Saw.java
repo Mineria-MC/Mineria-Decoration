@@ -1,4 +1,4 @@
-package io.github.mineria.decorationaddon.common.item.saw;
+package io.github.mineria.decorationaddon.common.item;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;

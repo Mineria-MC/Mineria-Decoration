@@ -2,7 +2,7 @@ package io.github.mineria.decorationaddon.common.init;
 
 import com.mineria.mod.common.items.MineriaItem;
 import io.github.mineria.decorationaddon.DecorationAddon;
-import io.github.mineria.decorationaddon.common.item.saw.*;
+import io.github.mineria.decorationaddon.common.item.Saw;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;

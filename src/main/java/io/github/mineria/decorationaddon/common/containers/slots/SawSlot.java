@@ -1,8 +1,6 @@
 package io.github.mineria.decorationaddon.common.containers.slots;
 
-import io.github.mineria.decorationaddon.common.init.MDAItems;
-import io.github.mineria.decorationaddon.common.item.saw.Saw;
-import net.minecraft.world.item.Item;
+import io.github.mineria.decorationaddon.common.item.Saw;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
