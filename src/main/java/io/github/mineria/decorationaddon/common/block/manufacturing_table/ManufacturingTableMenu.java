@@ -1,10 +1,10 @@
 package io.github.mineria.decorationaddon.common.block.manufacturing_table;
 
-import com.mineria.mod.common.containers.MineriaMenu;
-import com.mineria.mod.common.containers.slots.OutputSlot;
-import com.mineria.mod.util.MineriaItemStackHandler;
 import io.github.mineria.decorationaddon.common.containers.slots.SawSlot;
 import io.github.mineria.decorationaddon.common.init.MDAMenuTypes;
+import io.github.mineria_mc.mineria.common.containers.MineriaMenu;
+import io.github.mineria_mc.mineria.common.containers.slots.OutputSlot;
+import io.github.mineria_mc.mineria.util.MineriaItemStackHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

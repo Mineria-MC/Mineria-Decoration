@@ -3,6 +3,8 @@
 
   "block.mineriadecoration.manufacturing_table": "Manufacturing Table",
   "block.mineriadecoration.jar": "Jar",
+  "block.mineriadecoration.vertical_tool_stand": "Vertical Tool Stand",
+  "block.mineriadecoration.horizontal_tool_stand": "Horizontal Tool Stand",
 
   "item.mineriadecoration.netherite_saw": "Netherite Saw",
   "item.mineriadecoration.diamond_saw": "Diamond Saw",

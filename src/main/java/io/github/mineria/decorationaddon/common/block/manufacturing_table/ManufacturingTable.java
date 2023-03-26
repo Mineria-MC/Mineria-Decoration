@@ -1,6 +1,5 @@
 package io.github.mineria.decorationaddon.common.block.manufacturing_table;
 
-import com.mineria.mod.common.blocks.extractor.ExtractorTileEntity;
 import io.github.mineria.decorationaddon.common.init.MDATileEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -129,8 +128,6 @@ public class ManufacturingTable extends Block implements EntityBlock {
                         Block.box(12, 0, 3, 13, 12, 13),
                         Block.box(3, 0, 3, 4, 12, 13)
                 ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
-
-
 
         VoxelShape shapeSouth = Stream.of(
                 Stream.of(

@@ -1,6 +1,6 @@
 package io.github.mineria.decorationaddon.common.block.manufacturing_table;
 
-import com.mineria.mod.util.MineriaItemStackHandler;
+import io.github.mineria_mc.mineria.util.MineriaItemStackHandler;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 

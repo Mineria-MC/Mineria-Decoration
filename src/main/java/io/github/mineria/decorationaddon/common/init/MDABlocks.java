@@ -2,7 +2,9 @@ package io.github.mineria.decorationaddon.common.init;
 
 import io.github.mineria.decorationaddon.DecorationAddon;
 import io.github.mineria.decorationaddon.common.block.Jar;
+import io.github.mineria.decorationaddon.common.block.tool_stand.HorizontalToolStand;
 import io.github.mineria.decorationaddon.common.block.manufacturing_table.ManufacturingTable;
+import io.github.mineria.decorationaddon.common.block.tool_stand.VerticalToolStand;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -24,6 +26,9 @@ public class MDABlocks {
 
     public static final RegistryObject<Block> MANUFACTURING_TABLE = register("manufacturing_table", ManufacturingTable::new);
     public static final RegistryObject<Block> JAR = register("jar", Jar::new);
+
+    public static final RegistryObject<Block> HORIZONTAL_TOOL_STAND = register("horizontal_tool_stand", HorizontalToolStand::new);
+    public static final RegistryObject<Block> VERTICAL_TOOL_STAND = register("vertical_tool_stand", VerticalToolStand::new);
 
     private static RegistryObject<Block> register(String name, Supplier<Block> instance) {
         return registerBlock(name, instance, block -> new BlockItem(block, new Item.Properties()));

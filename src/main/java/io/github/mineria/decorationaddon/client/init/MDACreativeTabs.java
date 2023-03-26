@@ -1,9 +1,9 @@
 package io.github.mineria.decorationaddon.client.init;
 
-import com.mineria.mod.util.MineriaCreativeModeTabs;
 import io.github.mineria.decorationaddon.DecorationAddon;
 import io.github.mineria.decorationaddon.common.init.MDABlocks;
 import io.github.mineria.decorationaddon.common.init.MDAItems;
+import io.github.mineria_mc.mineria.util.MineriaCreativeModeTabs;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;

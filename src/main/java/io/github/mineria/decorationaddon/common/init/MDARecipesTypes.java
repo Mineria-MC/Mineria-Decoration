@@ -1,6 +1,5 @@
 package io.github.mineria.decorationaddon.common.init;
 
-import com.mineria.mod.common.init.MineriaRecipeTypes;
 import io.github.mineria.decorationaddon.DecorationAddon;
 import io.github.mineria.decorationaddon.common.recipe.ManufacturingTableRecipe;
 import net.minecraft.core.registries.Registries;
@@ -8,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class MDARecipesTypes {

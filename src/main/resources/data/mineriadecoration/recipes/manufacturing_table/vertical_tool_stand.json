@@ -1,0 +1,21 @@
+{
+  "type": "mineriadecoration:manufacturing_table",
+  "sawDurability": 3,
+  "pattern": [
+    " E ",
+    "#E#",
+    "#E#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "E": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "mineriadecoration:vertical_tool_stand",
+    "count": 1
+  }
+}

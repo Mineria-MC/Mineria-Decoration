@@ -1,11 +1,11 @@
 package io.github.mineria.decorationaddon.common.block.manufacturing_table;
 
-import com.mineria.mod.util.MineriaItemStackHandler;
-import com.mineria.mod.util.MineriaLockableTileEntity;
-import com.mineria.mod.util.MineriaUtils;
 import io.github.mineria.decorationaddon.common.init.MDARecipesTypes;
 import io.github.mineria.decorationaddon.common.init.MDATileEntities;
 import io.github.mineria.decorationaddon.common.recipe.ManufacturingTableRecipe;
+import io.github.mineria_mc.mineria.util.MineriaItemStackHandler;
+import io.github.mineria_mc.mineria.util.MineriaLockableBlockEntity;
+import io.github.mineria_mc.mineria.util.MineriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -16,14 +16,13 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Set;
 
-public class ManufacturingTableTileEntity extends MineriaLockableTileEntity {
+public class ManufacturingTableTileEntity extends MineriaLockableBlockEntity {
 
     public ManufacturingTableTileEntity(BlockPos pos, BlockState state) {
         super(MDATileEntities.MANUFACTURING_TABLE.get(), pos, state, new CustomInventory(11));
@@ -97,7 +96,7 @@ public class ManufacturingTableTileEntity extends MineriaLockableTileEntity {
 
     @Nullable
     private ManufacturingTableRecipe findManufacturingTableRecipe() {
-        Set<Recipe<?>> recipes = MineriaUtils.findRecipesByType(MDARecipesTypes.MANUFACTURING_TABLE_RECIPE.get(), level);
+        Set<ManufacturingTableRecipe> recipes = MineriaUtils.findRecipesByType(MDARecipesTypes.MANUFACTURING_TABLE_RECIPE.get(), level);
         for (Recipe<?> recipe : recipes) {
             if(recipe instanceof ManufacturingTableRecipe manufacturingTableRecipe && manufacturingTableRecipe.matches(new ManufacturingTableRecipeWrapper(this.inventory), level)) {
                 return manufacturingTableRecipe;
