@@ -2,7 +2,6 @@ package io.github.mineria_mc.decorationaddon.common.block.manufacturing_table;
 
 import io.github.mineria_mc.decorationaddon.common.init.MDATileEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -33,7 +32,6 @@ public class ManufacturingTable extends Block implements EntityBlock {
 
     public static final VoxelShape[] SHAPES = makeShape();
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    private static final Component CONTAINER_TITLE = Component.translatable("container.manufacturing_table");
 
     public ManufacturingTable() {
         super(Properties.of(Material.WOOD).strength(2.5f, 0f).sound(SoundType.WOOD));

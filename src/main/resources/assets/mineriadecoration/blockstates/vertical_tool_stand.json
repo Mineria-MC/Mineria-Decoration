@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "mineriadecoration:block/vertical_tool_stand"},
+    "facing=south": { "model": "mineriadecoration:block/vertical_tool_stand", "y": 180},
+    "facing=east": { "model": "mineriadecoration:block/vertical_tool_stand", "y": 90},
+    "facing=west": { "model": "mineriadecoration:block/vertical_tool_stand", "y": 270}
+  }
+}

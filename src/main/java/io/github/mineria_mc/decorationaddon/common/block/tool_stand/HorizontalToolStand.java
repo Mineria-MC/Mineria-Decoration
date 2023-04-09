@@ -1,75 +1,48 @@
 package io.github.mineria_mc.decorationaddon.common.block.tool_stand;
 
-import io.github.mineria_mc.decorationaddon.common.init.MDATileEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
-public class HorizontalToolStand extends Block implements EntityBlock {
+public class HorizontalToolStand extends ToolStandBlock {
 
-    private static final VoxelShape SHAPE = makeShape();
+    private static final VoxelShape Z_SHAPE = Block.box(0, 0, 2.5, 16, 8.5, 13.5);;
+    private static final VoxelShape X_SHAPE = Block.box(2.5, 0, 0, 13.5, 8.5, 16);;
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public HorizontalToolStand() {
-        super(Properties.of(Material.WOOD).strength(0.5f, 0.3f).sound(SoundType.WOOD));
+        super(Properties.of(Material.WOOD).strength(0.5f, 0.3f).sound(SoundType.WOOD).noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false).isRedstoneConductor((pState, pLevel, pPos) -> false).isSuffocating((pState, pLevel, pPos) -> false).isViewBlocking((pState, pLevel, pPos) -> false));
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return SHAPE;
-    }
-
-    private static VoxelShape makeShape() {
-        return Block.box(0, 0, 0, 16, 16, 16);
+        return pState.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_SHAPE : X_SHAPE;
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        BlockEntity be = level.getBlockEntity(pos);
-        if(be instanceof ToolStandBlockEntity toolStand) {
-            ItemStack stack = player.getItemInHand(hand);
-            if(stack.isEmpty()) {
-                ItemStack obtained = toolStand.pickTool();
-                if(!obtained.isEmpty()) {
-                    player.setItemInHand(hand, obtained);
-                    return InteractionResult.sidedSuccess(level.isClientSide);
-                }
-            } else {
-                if(toolStand.storeTool(stack)) {
-                    player.setItemInHand(hand, ItemStack.EMPTY);
-                    return InteractionResult.sidedSuccess(level.isClientSide);
-                }
-            }
-        }
-        return super.use(state, level, pos, player, hand, hit);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection());
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-        if(blockEntity instanceof ToolStandBlockEntity toolStand && !toolStand.getStoredTool().isEmpty()) {
-            Containers.dropItemStack(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, toolStand.getStoredTool());
-        }
-
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+    public BlockState rotate(BlockState state, Rotation direction) {
+        return state.setValue(FACING, direction.rotate(state.getValue(FACING)));
     }
 
-    @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return MDATileEntities.TOOL_STAND.get().create(pPos, pState);
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING);
     }
 }

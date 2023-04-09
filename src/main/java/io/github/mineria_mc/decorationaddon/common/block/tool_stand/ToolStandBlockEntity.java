@@ -28,6 +28,7 @@ public class ToolStandBlockEntity extends BlockEntity {
             return false;
         }
         storedTool = stack;
+        setChanged();
         return true;
     }
 
@@ -37,6 +38,7 @@ public class ToolStandBlockEntity extends BlockEntity {
         }
         ItemStack tool = storedTool;
         storedTool = ItemStack.EMPTY;
+        setChanged();
         return tool;
     }
 

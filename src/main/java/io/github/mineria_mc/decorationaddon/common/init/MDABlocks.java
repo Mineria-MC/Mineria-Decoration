@@ -1,7 +1,6 @@
 package io.github.mineria_mc.decorationaddon.common.init;
 
 import io.github.mineria_mc.decorationaddon.DecorationAddon;
-import io.github.mineria_mc.decorationaddon.common.block.Jar;
 import io.github.mineria_mc.decorationaddon.common.block.tool_stand.HorizontalToolStand;
 import io.github.mineria_mc.decorationaddon.common.block.manufacturing_table.ManufacturingTable;
 import io.github.mineria_mc.decorationaddon.common.block.tool_stand.VerticalToolStand;
@@ -25,7 +24,6 @@ public class MDABlocks {
     public static final DeferredRegister<Item> BLOCK_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DecorationAddon.MODID);
 
     public static final RegistryObject<Block> MANUFACTURING_TABLE = register("manufacturing_table", ManufacturingTable::new);
-    public static final RegistryObject<Block> JAR = register("jar", Jar::new);
 
     public static final RegistryObject<Block> HORIZONTAL_TOOL_STAND = register("horizontal_tool_stand", HorizontalToolStand::new);
     public static final RegistryObject<Block> VERTICAL_TOOL_STAND = register("vertical_tool_stand", VerticalToolStand::new);
