@@ -1,5 +1,6 @@
 package io.github.mineria_mc.decorationaddon.common.block.manufacturing_table;
 
+import io.github.mineria_mc.decorationaddon.common.block.MDACustomBlock;
 import io.github.mineria_mc.decorationaddon.common.init.MDATileEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -7,7 +8,6 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -15,8 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -28,10 +26,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class ManufacturingTable extends Block implements EntityBlock {
+public class ManufacturingTable extends MDACustomBlock implements EntityBlock {
 
     public static final VoxelShape[] SHAPES = makeShape();
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public ManufacturingTable() {
         super(Properties.of(Material.WOOD).strength(2.5f, 0f).sound(SoundType.WOOD));
@@ -54,26 +51,6 @@ public class ManufacturingTable extends Block implements EntityBlock {
             case WEST -> SHAPES[1];
             default -> SHAPES[0];
         };
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection());
-    }
-
-    @Override
-    public BlockState rotate(BlockState state, Rotation direction) {
-        return state.setValue(FACING, direction.rotate(state.getValue(FACING)));
-    }
-
-    @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
     }
 
     private static VoxelShape[] makeShape(){

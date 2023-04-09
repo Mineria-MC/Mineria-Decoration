@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "mineriadecoration:manufacturing_table"
+    "mineriadecoration:manufacturing_table",
+    "mineriadecoration:horizontal_tool_stand",
+    "mineriadecoration:vertical_tool_stand"
   ]
 }

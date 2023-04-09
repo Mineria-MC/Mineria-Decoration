@@ -17,10 +17,9 @@ public class VerticalToolStand extends ToolStandBlock {
     private static final VoxelShape SHAPE_NORTH = Block.box(4, 1, 8, 11, 15, 16);
     private static final VoxelShape SHAPE_EAST = Block.box(0, 1, 4, 8, 15, 11);
     private static final VoxelShape SHAPE_WEST = Block.box(8, 1, 5, 16, 15, 12);
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public VerticalToolStand() {
-        super(Properties.of(Material.WOOD).strength(0.5f, 0.3f).sound(SoundType.WOOD).noOcclusion());
+        super(Properties.of(Material.WOOD).strength(0.5f, 0.3f).sound(SoundType.WOOD).isValidSpawn((pState, pLevel, pPos, pValue) -> false).isRedstoneConductor((pState, pLevel, pPos) -> false).isSuffocating((pState, pLevel, pPos) -> false).isViewBlocking((pState, pLevel, pPos) -> false));
     }
 
     @Override
@@ -36,20 +35,5 @@ public class VerticalToolStand extends ToolStandBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
-    }
-
-    @Override
-    public BlockState rotate(BlockState state, Rotation direction) {
-        return state.setValue(FACING, direction.rotate(state.getValue(FACING)));
-    }
-
-    @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
     }
 }
