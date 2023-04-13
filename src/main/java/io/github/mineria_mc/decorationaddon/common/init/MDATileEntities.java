@@ -1,6 +1,7 @@
 package io.github.mineria_mc.decorationaddon.common.init;
 
 import io.github.mineria_mc.decorationaddon.DecorationAddon;
+import io.github.mineria_mc.decorationaddon.common.block.framework.FrameworkBlockEntity;
 import io.github.mineria_mc.decorationaddon.common.block.manufacturing_table.ManufacturingTableTileEntity;
 import io.github.mineria_mc.decorationaddon.common.block.tool_stand.ToolStandBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -15,4 +16,5 @@ public class MDATileEntities {
 
     public static final RegistryObject<BlockEntityType<ManufacturingTableTileEntity>> MANUFACTURING_TABLE = TILE_ENTITY_TYPES.register("manufacturing_table", () -> Builder.of(ManufacturingTableTileEntity::new, MDABlocks.MANUFACTURING_TABLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ToolStandBlockEntity>> TOOL_STAND = TILE_ENTITY_TYPES.register("tool_stand", () -> Builder.of(ToolStandBlockEntity::new, MDABlocks.HORIZONTAL_TOOL_STAND.get(), MDABlocks.VERTICAL_TOOL_STAND.get()).build(null));
+    public static final RegistryObject<BlockEntityType<FrameworkBlockEntity>> FRAMEWORK = TILE_ENTITY_TYPES.register("framework", () -> Builder.of(FrameworkBlockEntity::new, MDABlocks.FRAMEWORK.get()).build(null));
 }

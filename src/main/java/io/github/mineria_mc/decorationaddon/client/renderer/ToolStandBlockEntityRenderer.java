@@ -36,9 +36,6 @@ public class ToolStandBlockEntityRenderer implements BlockEntityRenderer<ToolSta
         } else if(blockEntity.getBlockState().getBlock() instanceof VerticalToolStand) {
             Direction direction = blockEntity.getBlockState().getValue(VerticalToolStand.FACING);
             Vector3d pos = new Vector3d(0.5, 0.5, 0.5);
-//            if(!blockEntity.getStoredTool().is(Tags.Items.TOOLS_SWORDS)) {
-//                pos.add(0, 0.25, 0);
-//            }
             pos.add(1. / 32 * direction.getStepZ() - 5. / 16 * direction.getStepX(), 0, -5. / 16 * direction.getStepZ() - 1. / 32 * direction.getStepX());
             stack.translate(pos.x(), pos.y(), pos.z());
             stack.mulPose(Axis.YN.rotationDegrees(direction.toYRot()));

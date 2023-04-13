@@ -1,6 +1,7 @@
 package io.github.mineria_mc.decorationaddon.common.init;
 
 import io.github.mineria_mc.decorationaddon.DecorationAddon;
+import io.github.mineria_mc.decorationaddon.common.block.framework.Framework;
 import io.github.mineria_mc.decorationaddon.common.block.tool_stand.HorizontalToolStand;
 import io.github.mineria_mc.decorationaddon.common.block.manufacturing_table.ManufacturingTable;
 import io.github.mineria_mc.decorationaddon.common.block.tool_stand.VerticalToolStand;
@@ -27,6 +28,8 @@ public class MDABlocks {
 
     public static final RegistryObject<Block> HORIZONTAL_TOOL_STAND = register("horizontal_tool_stand", HorizontalToolStand::new);
     public static final RegistryObject<Block> VERTICAL_TOOL_STAND = register("vertical_tool_stand", VerticalToolStand::new);
+
+    public static final RegistryObject<Block> FRAMEWORK = register("framework", Framework::new);
 
     private static RegistryObject<Block> register(String name, Supplier<Block> instance) {
         return registerBlock(name, instance, block -> new BlockItem(block, new Item.Properties()));
