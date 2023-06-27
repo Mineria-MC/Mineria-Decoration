@@ -95,11 +95,7 @@ repositories {
     // Mineria Repo
     maven {
         name "Mineria Github"
-        url "https://maven.pkg.github.com/Mineria-MC/Mineria"
-        credentials {
-            username findProperty("github_username")
-            password findProperty("github_token")
-        }
+        url /*"https://maven.pkg.github.com/Mineria-MC/Mineria"*/ "D:\\Victor\\Java Workspaces\\IDEA\\Modding\\Mineria\\build\\repo"
     }
 }
 

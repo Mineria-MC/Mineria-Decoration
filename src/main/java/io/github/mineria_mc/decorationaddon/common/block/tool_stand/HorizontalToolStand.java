@@ -13,6 +13,7 @@ public class HorizontalToolStand extends ToolStandBlock {
 
     private static final VoxelShape Z_SHAPE = Block.box(0, 0, 2.5, 16, 8.5, 13.5);
     private static final VoxelShape X_SHAPE = Block.box(2.5, 0, 0, 13.5, 8.5, 16);
+
     public HorizontalToolStand() {
         super(Properties.of(Material.WOOD).strength(0.5f, 0.3f).sound(SoundType.WOOD).isValidSpawn((pState, pLevel, pPos, pValue) -> false).isRedstoneConductor((pState, pLevel, pPos) -> false).isSuffocating((pState, pLevel, pPos) -> false).isViewBlocking((pState, pLevel, pPos) -> false));
     }

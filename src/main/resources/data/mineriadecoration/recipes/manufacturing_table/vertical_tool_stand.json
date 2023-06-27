@@ -1,6 +1,6 @@
 {
   "type": "mineriadecoration:manufacturing_table",
-  "sawDurability": 3,
+  "saw_durability": 3,
   "pattern": [
     " E ",
     "#E#",

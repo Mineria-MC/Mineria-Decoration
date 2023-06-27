@@ -1,5 +1,6 @@
 package io.github.mineria_mc.decorationaddon.common.block.tool_stand;
 
+import io.github.mineria_mc.decorationaddon.common.init.MDAItems;
 import io.github.mineria_mc.decorationaddon.common.init.MDATileEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -47,7 +48,7 @@ public class ToolStandBlockEntity extends BlockEntity {
     }
 
     private boolean isValidTool(ItemStack stack) {
-        return stack.getItem() instanceof TieredItem;
+        return stack.is(MDAItems.Tags.TOOL_STAND_VALID);
     }
 
     @Override

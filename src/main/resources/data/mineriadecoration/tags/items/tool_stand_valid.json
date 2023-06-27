@@ -7,6 +7,9 @@
     "#forge:tools/shovels",
     "#forge:tools/hoes",
     "#forge:tools/bows",
-    "#forge:tools/tridents"
+    "#forge:tools/tridents",
+    "#forge:tools/daggers",
+    "#forge:tools/double_axes",
+    "mineria:kunai"
   ]
 }

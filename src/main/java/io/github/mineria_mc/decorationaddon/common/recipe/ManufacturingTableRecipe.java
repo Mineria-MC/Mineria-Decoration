@@ -92,6 +92,11 @@ public class ManufacturingTableRecipe implements Recipe<ManufacturingTableRecipe
     }
 
     @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return recipeItems;
+    }
+
+    @Override
     public boolean canCraftInDimensions(int width, int height) {
         return width >= this.width && height >= this.height;
     }
@@ -242,7 +247,7 @@ public class ManufacturingTableRecipe implements Recipe<ManufacturingTableRecipe
             int height = pattern.length;
             NonNullList<Ingredient> ingredients = ManufacturingTableRecipe.dissolvePattern(pattern, map, width, height);
 
-            int durability = GsonHelper.getAsInt(json, "sawDurability", 1);
+            int durability = GsonHelper.getAsInt(json, "saw_durability", 1);
             ItemStack result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "result"), true, true);
             return new ManufacturingTableRecipe(recipeId, width, height, ingredients, durability, result);
         }

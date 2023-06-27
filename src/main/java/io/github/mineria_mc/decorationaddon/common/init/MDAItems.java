@@ -22,7 +22,7 @@ public class MDAItems {
     public static final RegistryObject<Item> LONSDALEITE_SAW = ITEMS.register("lonsdaleite_saw", () -> new Saw(MineriaItem.ItemTier.LONSDALEITE));
 
     public static final class Tags {
-        public static final TagKey<Item> SAWS = MDAItems.ITEMS.createTagKey("saws");
-        public static final TagKey<Item> TOOL_STAND_VALID = MDAItems.ITEMS.createTagKey("tool_stand_valid");
+        public static final TagKey<Item> SAWS = ITEMS.createTagKey("saws");
+        public static final TagKey<Item> TOOL_STAND_VALID = ITEMS.createTagKey("tool_stand_valid");
     }
 }

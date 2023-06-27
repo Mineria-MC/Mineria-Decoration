@@ -1,6 +1,4 @@
 {
-  "itemGroup.mda": "Mineria: Decoration Addon",
-
   "block.mineriadecoration.manufacturing_table": "Manufacturing Table",
   "block.mineriadecoration.vertical_tool_stand": "Vertical Tool Stand",
   "block.mineriadecoration.horizontal_tool_stand": "Horizontal Tool Stand",
@@ -13,5 +11,12 @@
   "item.mineriadecoration.titane_saw": "Titane Saw",
   "item.mineriadecoration.lonsdaleite_saw": "Lonsdaleite Saw",
 
-  "tile_entity.mineriadecoration.manufacturing_table": "Manufacturing Table"
+  "tile_entity.mineriadecoration.manufacturing_table": "Manufacturing Table",
+
+  "recipe_category.mda.manufacturing_table": "Manufacturing Table",
+  "recipe_category.mda.manufacturing_table.crafting": "Manufacturing Table: Crafting",
+
+  "itemGroup.mda": "Mineria: Decoration Addon",
+
+  "tooltip.mda.required_saw_durability": "Required durability: %d"
 }
